@@ -1,0 +1,37 @@
+project_name: aqi-forecasting
+
+data:
+  city: Delhi
+  stations:
+    - "ITO, Delhi - CPCB"
+    - "Anand Vihar, Delhi - DPCC"
+    - "RK Puram, Delhi - DPCC"
+  primary_station: "ITO, Delhi - CPCB"
+  start_date: "2019-01-01"
+  end_date: "2024-12-31"
+  target: pm25
+  freq: "1h"
+  latitude: 28.6139
+  longitude: 77.2090
+  timezone: "Asia/Kolkata"
+
+features:
+  lags: [1, 2, 3, 6, 12, 24, 48, 72, 168]
+  rolling_windows: [6, 12, 24, 48, 168]
+  fourier_order: 4
+  weather_lags: [1, 6, 24]
+  pollutant_lags: [1, 6, 24]
+
+training:
+  forecast_horizon: 24
+  lookback_window: 168
+  val_fraction: 0.15
+  test_fraction: 0.15
+  batch_size: 64
+  max_epochs: 100
+  early_stopping_patience: 10
+  learning_rate: 0.001
+
+wandb:
+  project: aqi-forecasting
+  entity: null
